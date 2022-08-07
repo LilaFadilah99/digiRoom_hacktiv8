@@ -14,10 +14,62 @@ module.exports = (sequelize, DataTypes) => {
   }
   Account.init(
     {
-      name: DataTypes.STRING,
-      gender: DataTypes.STRING,
-      address: DataTypes.STRING,
-      phoneNumber: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Name cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Name cannot empty",
+          },
+        },
+      },
+      gender: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Gender cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Gender cannot empty",
+          },
+        },
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Address cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Address cannot empty",
+          },
+        },
+      },
+      phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Phone Number cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Phone Number cannot empty",
+          },
+        },
+      },
       contackEmergency: DataTypes.STRING,
       UserActivityId: DataTypes.INTEGER,
     },

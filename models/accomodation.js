@@ -15,14 +15,122 @@ module.exports = (sequelize, DataTypes) => {
   }
   Accomodation.init(
     {
-      name: DataTypes.STRING,
-      facility: DataTypes.STRING,
-      roomCapacity: DataTypes.INTEGER,
-      imgUrl: DataTypes.STRING,
-      location: DataTypes.STRING,
-      price: DataTypes.INTEGER,
-      UserId: DataTypes.INTEGER,
-      TypeId: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "name cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "name cannot empty",
+          },
+        },
+      },
+      facility: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Facility cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Facility cannot empty",
+          },
+        },
+      },
+      roomCapacity: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Room Capacity cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Room Capacity cannot empty",
+          },
+        },
+      },
+      imgUrl: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Image Url cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Image Url cannot empty",
+          },
+        },
+      },
+      location: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Location cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Location cannot empty",
+          },
+        },
+      },
+      price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Price cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Price cannot empty",
+          },
+          min: {
+            args: 50000,
+            msg: "Minimum price is 50000",
+          },
+        },
+      },
+      UserId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "User cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "User cannot empty",
+          },
+        },
+      },
+      TypeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Type cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Type cannot empty",
+          },
+        },
+      },
     },
     {
       sequelize,

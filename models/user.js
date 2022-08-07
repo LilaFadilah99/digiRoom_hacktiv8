@@ -14,10 +14,71 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      username: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      role: DataTypes.STRING,
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Username cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Username cannot empty",
+          },
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Email cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Email cannot empty",
+          },
+          isEmail: {
+            args: true,
+            msg: "Invalid email",
+          },
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Password cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Password cannot empty",
+          },
+          checkPasswordLength(value) {
+            if (value.length < 5) {
+              throw new Error("minimum password length is 5");
+            }
+          },
+        },
+      },
+      role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: true,
+            msg: "Role cannot null",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Role cannot empty",
+          },
+        },
+      },
     },
     {
       sequelize,
