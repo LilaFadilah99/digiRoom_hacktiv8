@@ -1,6 +1,6 @@
 const { User } = require("../models");
 const { checkPassword } = require("../helpers/bcrypt");
-const { encodeData, decodeData } = require("../helpers/jwt");
+const { encodeData } = require("../helpers/jwt");
 
 class UserController {
   static async userRegister(request, response, next) {
@@ -13,7 +13,30 @@ class UserController {
       next(error);
     }
   }
-  static async userLogin(request, response, next) {}
+  static async userLogin(request, response, next) {
+    const { email, password } = request.body;
+    if (!email || !password) {
+      next({ name: "Email and Password is required" });
+    } else {
+      try {
+        const user = await User.findOne({ where: { email } });
+        const check = checkPassword(password, user.password);
+
+        if (user && check) {
+          const accesToken = encodeData({
+            id: user.id,
+            email: user.email,
+            role: user.role,
+          });
+          response.status(200).json({ accesToken });
+        } else {
+          throw { name: "invalidUser" };
+        }
+      } catch (error) {
+        next(error);
+      }
+    }
+  }
   static async getAllUser(request, response, next) {
     try {
       const user = await User.findAll();
