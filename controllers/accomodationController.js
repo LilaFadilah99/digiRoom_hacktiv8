@@ -2,9 +2,20 @@ const e = require("express");
 const { Accomodation } = require("../models");
 class AccomodationController {
   static async getAllAccomodation(request, response, next) {
+    let opt = {};
+    let role = request.userData.role;
+    let id = request.userData.id;
+
+    if (role !== "admin") {
+      opt.where = { UserId: id };
+    }
     try {
-      const accomodation = await Accomodation.findAll();
-      response.status(200).json(accomodation);
+      const accomodation = await Accomodation.findAll(opt);
+      if (accomodation.length === 0) {
+        throw { name: "NotFound" };
+      } else {
+        response.status(200).json(accomodation);
+      }
     } catch (error) {
       next(error);
     }
@@ -24,6 +35,7 @@ class AccomodationController {
       });
       response.status(201).json(newAccomodation);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

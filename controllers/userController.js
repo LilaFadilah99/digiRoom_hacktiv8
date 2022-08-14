@@ -15,13 +15,14 @@ class UserController {
   }
   static async userLogin(request, response, next) {
     const { email, password } = request.body;
+    // console.log(request.body);
     if (!email || !password) {
       next({ name: "Email and Password is required" });
     } else {
       try {
         const user = await User.findOne({ where: { email } });
         const check = checkPassword(password, user.password);
-
+        // console.log(user);
         if (user && check) {
           const accesToken = encodeData({
             id: user.id,
@@ -83,7 +84,9 @@ class UserController {
         response.status(200).json(`succes delete uder id ${id}`);
       }
     } catch (error) {
-      next(error);
+      console.log(error);
+      response.status(500).json(error);
+      // next(error);
     }
   }
 }
